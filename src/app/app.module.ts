@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ButtonModule } from 'primeng/button';
-import { DropdownModule } from 'primeng/dropdown';
+import { MenubarModule } from 'primeng/menubar';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -14,8 +14,8 @@ import { DropdownModule } from 'primeng/dropdown';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ButtonModule,
-    DropdownModule
+    MenubarModule,
+    InputTextModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
