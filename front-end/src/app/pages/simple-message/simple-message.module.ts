@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { StepsModule } from 'primeng/steps';
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { StepsModule } from 'primeng/steps';
     FormsModule,
     CardModule,
     StepsModule,
+    MessageModule,
   ]
 })
 export default class SimpleMessageModule { }

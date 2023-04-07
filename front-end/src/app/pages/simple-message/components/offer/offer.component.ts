@@ -15,10 +15,4 @@ export class OfferComponent {
     { label: 'ยืนยัน Answer' },
   ];
 
-
-  /** สร้างข้อมุล Offer */
-  createOffer() {
-    this.step = 1;
-  }
-
 }
