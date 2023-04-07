@@ -8,7 +8,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class AppComponent {
   items: MenuItem[] = [
-    { label: 'Simple message' }
+    { label: 'Simple message', routerLink: ['/simple-message'] }
   ];
 
 }
