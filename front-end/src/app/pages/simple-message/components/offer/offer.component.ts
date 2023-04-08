@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-offer',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./offer.component.scss']
 })
 export class OfferComponent {
+
+  step: number = 0;
+  steps: MenuItem[] = [
+    { label: 'สร้าง Offer' },
+    { label: 'คัดลอก Offer' },
+    { label: 'ยืนยัน Answer' },
+  ];
 
 }

@@ -4,7 +4,10 @@ import { CommonModule } from '@angular/common';
 import { SimpleMessageRoutingModule } from './simple-message-routing.module';
 import { OfferComponent } from './components/offer/offer.component';
 import { AnswerComponent } from './components/answer/answer.component';
-
+import { StepsModule } from 'primeng/steps';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -13,7 +16,11 @@ import { AnswerComponent } from './components/answer/answer.component';
   ],
   imports: [
     CommonModule,
-    SimpleMessageRoutingModule
+    SimpleMessageRoutingModule,
+    StepsModule,
+    CardModule,
+    ButtonModule,
+    InputTextareaModule
   ]
 })
 export default class SimpleMessageModule { }
