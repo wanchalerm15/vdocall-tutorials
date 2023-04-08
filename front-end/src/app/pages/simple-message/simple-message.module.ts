@@ -4,29 +4,27 @@ import { CommonModule } from '@angular/common';
 import { SimpleMessageRoutingModule } from './simple-message-routing.module';
 import { OfferComponent } from './components/offer/offer.component';
 import { AnswerComponent } from './components/answer/answer.component';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { ButtonModule } from 'primeng/button';
-import { FormsModule } from '@angular/forms';
-import { CardModule } from 'primeng/card';
 import { StepsModule } from 'primeng/steps';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MessageModule } from 'primeng/message';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     OfferComponent,
-    AnswerComponent,
+    AnswerComponent
   ],
   imports: [
     CommonModule,
     SimpleMessageRoutingModule,
-    InputTextModule,
-    InputTextareaModule,
-    ButtonModule,
-    FormsModule,
-    CardModule,
     StepsModule,
+    CardModule,
+    ButtonModule,
+    InputTextareaModule,
     MessageModule,
+    FormsModule,
   ]
 })
 export default class SimpleMessageModule { }
