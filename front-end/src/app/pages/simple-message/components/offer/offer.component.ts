@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-offer',
@@ -9,12 +9,15 @@ import { MenuItem } from 'primeng/api';
 export class OfferComponent {
 
   constructor(
+    private _message: MessageService,
     private _zone: NgZone
   ) { }
 
   private _peer: RTCPeerConnection & { dc?: RTCDataChannel } = new RTCPeerConnection();
 
+  connected: boolean = false;
   offerData: string = '';
+  answerData: string = '';
   step: number = 0;
   steps: MenuItem[] = [
     { label: 'สร้าง Offer' },
@@ -37,9 +40,19 @@ export class OfferComponent {
     this._peer.createOffer().then(offer => this._peer.setLocalDescription(offer));
   }
 
+  /** ยืนยันข้อมูล Answer */
+  confirmAnswer() {
+    if (!this.answerData)
+      return this._message.add({ severity: 'warn', summary: 'แจ้งเตือน', detail: 'กรุณากรอกข้อมูล Offer' });
+    this._peer.setRemoteDescription(JSON.parse(this.answerData));
+  }
+
   /** เมื่อเชื่อมต่อสำเร็จ */
   private _onChannelOpen() {
-    console.log('Open successfully');
+    this._zone.run(() => {
+      console.log('Open successfully');
+      this.connected = true;
+    });
   }
 
   /** เมื่ออีกเครื่องส่งข้อความมา */

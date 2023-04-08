@@ -14,9 +14,10 @@ export class AnswerComponent {
   ) { }
 
   private _peer: RTCPeerConnection & { dc?: RTCDataChannel } = new RTCPeerConnection();
+
+  connected: boolean = false;
   offerData: string = '';
   answerData: string = '';
-
   step: number = 0;
   steps: MenuItem[] = [
     { label: 'เก็บ Offer' },
@@ -53,7 +54,10 @@ export class AnswerComponent {
 
   /** เมื่อเชื่อมต่อสำเร็จ */
   private _onChannelOpen() {
-    console.log('Open successfully');
+    this._zone.run(() => {
+      console.log('Open successfully');
+      this.connected = true;
+    });
   }
 
   /** เมื่ออีกเครื่องส่งข้อความมา */
