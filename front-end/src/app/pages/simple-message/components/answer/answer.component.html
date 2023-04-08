@@ -44,5 +44,5 @@
 </div>
 
 <ng-template #chatTemplate>
-    <app-chat></app-chat>
+    <app-chat [channel]="channel" [(items)]="messageItems"></app-chat>
 </ng-template>

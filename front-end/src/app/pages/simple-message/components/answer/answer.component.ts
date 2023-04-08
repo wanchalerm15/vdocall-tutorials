@@ -1,5 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { IChat } from '../../intefaces/chat.interface';
 
 @Component({
   selector: 'app-answer',
@@ -14,6 +15,9 @@ export class AnswerComponent {
   ) { }
 
   private _peer: RTCPeerConnection & { dc?: RTCDataChannel } = new RTCPeerConnection();
+
+  public messageItems: IChat[] = [];
+  public get channel() { return this._peer.dc; }
 
   connected: boolean = false;
   offerData: string = '';
@@ -62,7 +66,10 @@ export class AnswerComponent {
 
   /** เมื่ออีกเครื่องส่งข้อความมา */
   private _onChannelMessage(ev: MessageEvent<string>) {
-    console.log('Message: ', ev.data);
+    this._zone.run(() => {
+      console.log('Message: ', ev.data);
+      this.messageItems.push({ isMe: false, text: ev.data });
+    });
   }
 
 }
