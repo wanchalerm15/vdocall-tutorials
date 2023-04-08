@@ -8,6 +8,7 @@ import { StepsModule } from 'primeng/steps';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     StepsModule,
     CardModule,
     ButtonModule,
-    InputTextareaModule
+    InputTextareaModule,
+    MessageModule
   ]
 })
 export default class SimpleMessageModule { }

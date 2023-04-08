@@ -12,6 +12,9 @@
                 <div class="row justify-content-center" *ngSwitchCase="1">
                     <div class="col-lg-6">
                         <textarea pInputTextarea class="w-100 mb-3" rows="10"></textarea>
+                        <p-message severity="warn"
+                            text="คัดลอกข้อมูล Offer ด้านบน ส่งไปให้เครื่องที่ต้องการเชื่อมต่อจากนั้นกด ถัดไป"
+                            styleClass="w-100 mb-3"></p-message>
                         <div class="row g-2">
                             <div class="col-lg-6">
                                 <button pButton label="ย้อนกลับ" class="w-100 p-button-link"
@@ -26,6 +29,9 @@
 
                 <div class="row justify-content-center" *ngSwitchCase="2">
                     <div class="col-lg-6">
+                        <p-message severity="warn"
+                            text="นำข้อมูล Answer จากเครื่องที่ต้องการเชื่อมต่อมาวางที่ช่องด้านล่างจากนั้นกด ยืนยัน"
+                            styleClass="w-100 mb-3"></p-message>
                         <textarea pInputTextarea class="w-100 mb-3" rows="10"></textarea>
                         <div class="row g-2">
                             <div class="col-lg-6">
