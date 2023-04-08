@@ -1,4 +1,4 @@
-<div class="row justify-content-center" *ngIf="!connected">
+<div class="row justify-content-center" *ngIf="connected; else chatTemplate">
     <div class="col-lg-8">
         <p-card>
             <p-steps [model]="steps" [(activeIndex)]="step" styleClass="py-4"></p-steps>
@@ -48,3 +48,7 @@
         </p-card>
     </div>
 </div>
+
+<ng-template #chatTemplate>
+    <app-chat></app-chat>
+</ng-template>
