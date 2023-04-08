@@ -9,6 +9,7 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MessageModule } from 'primeng/message';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MessageModule } from 'primeng/message';
     CardModule,
     ButtonModule,
     InputTextareaModule,
-    MessageModule
+    MessageModule,
+    FormsModule,
   ]
 })
 export default class SimpleMessageModule { }

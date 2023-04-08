@@ -5,13 +5,13 @@
             <ng-container [ngSwitch]="step">
                 <div class="row justify-content-center" *ngSwitchCase="0">
                     <div class="col-lg-6">
-                        <button pButton label="สร้างข้อมูล Offer" class="w-100" (click)="step = 1"></button>
+                        <button pButton label="สร้างข้อมูล Offer" class="w-100" (click)="createOffer()"></button>
                     </div>
                 </div>
 
                 <div class="row justify-content-center" *ngSwitchCase="1">
                     <div class="col-lg-6">
-                        <textarea pInputTextarea class="w-100 mb-3" rows="10"></textarea>
+                        <textarea pInputTextarea class="w-100 mb-3" rows="10" [ngModel]="offerData" disabled></textarea>
                         <p-message severity="warn"
                             text="คัดลอกข้อมูล Offer ด้านบน ส่งไปให้เครื่องที่ต้องการเชื่อมต่อจากนั้นกด ถัดไป"
                             styleClass="w-100 mb-3"></p-message>
