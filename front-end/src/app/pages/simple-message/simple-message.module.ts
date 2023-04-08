@@ -10,11 +10,15 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MessageModule } from 'primeng/message';
 import { FormsModule } from '@angular/forms';
+import { ChatComponent } from './components/chat/chat.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { PanelModule } from 'primeng/panel';
 
 @NgModule({
   declarations: [
     OfferComponent,
-    AnswerComponent
+    AnswerComponent,
+    ChatComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +29,8 @@ import { FormsModule } from '@angular/forms';
     InputTextareaModule,
     MessageModule,
     FormsModule,
+    InputTextModule,
+    PanelModule,
   ]
 })
 export default class SimpleMessageModule { }
