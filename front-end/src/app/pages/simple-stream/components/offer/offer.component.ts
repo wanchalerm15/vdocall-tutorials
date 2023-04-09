@@ -73,6 +73,7 @@ export class OfferComponent {
       return this._message.add({ severity: 'warn', summary: 'แจ้งเตือน', detail: 'ไม่มีข้อมูล Stream' });
 
     this.localStream.getTracks().forEach(track => this._peer.addTrack(track, this.localStream!));
+    this._peer.ontrack = ev => this._onTrackStream(ev);
     this._peer.onicecandidate = ev => {
       if (!ev.candidate) return;
       this._zone.run(() => {
@@ -88,6 +89,13 @@ export class OfferComponent {
     if (!this.answerData)
       return this._message.add({ severity: 'warn', summary: 'แจ้งเตือน', detail: 'กรุณากรอกข้อมูล Offer' });
     this._peer.setRemoteDescription(JSON.parse(this.answerData));
+  }
+
+  /** เมื่อเครื่องที่เชื่อมต่อส่งข้อมูล Stream มาให้ */
+  private _onTrackStream(ev: RTCTrackEvent) {
+    if (ev.streams.length <= 0) return;
+    const stream = ev.streams[0];
+    console.log(stream, this.localStream);
   }
 
   /** โหลดข้อมูล device กล้องและไมค์ */
