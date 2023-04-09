@@ -1,0 +1,53 @@
+<div class="row justify-content-center" *ngIf="!connected; else chatTemplate">
+    <div class="col-lg-8">
+        <p-card>
+            <p-steps [model]="steps" [(activeIndex)]="step" styleClass="py-4"></p-steps>
+            <ng-container [ngSwitch]="step">
+                <div class="row justify-content-center" *ngSwitchCase="1">
+                    <div class="col-lg-6">
+                        <button pButton label="สร้างข้อมูล Offer" class="w-100" (click)="createOffer()"></button>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center" *ngSwitchCase="2">
+                    <div class="col-lg-6">
+                        <textarea pInputTextarea class="w-100 mb-3" rows="10" [ngModel]="offerData" disabled></textarea>
+                        <p-message severity="warn"
+                            text="คัดลอกข้อมูล Offer ด้านบน ส่งไปให้เครื่องที่ต้องการเชื่อมต่อจากนั้นกด ถัดไป"
+                            styleClass="w-100 mb-3"></p-message>
+                        <div class="row g-2">
+                            <div class="col-lg-6">
+                                <button pButton label="ย้อนกลับ" class="w-100 p-button-link"
+                                    (click)="step = 0"></button>
+                            </div>
+                            <div class="col-lg-6">
+                                <button pButton label="ถัดไป" class="w-100" (click)="step = 2"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center" *ngSwitchCase="3">
+                    <div class="col-lg-6">
+                        <p-message severity="warn"
+                            text="นำข้อมูล Answer จากเครื่องที่ต้องการเชื่อมต่อมาวางที่ช่องด้านล่างจากนั้นกด ยืนยัน"
+                            styleClass="w-100 mb-3"></p-message>
+                        <textarea pInputTextarea class="w-100 mb-3" rows="10" [(ngModel)]="answerData"></textarea>
+                        <div class="row g-2">
+                            <div class="col-lg-6">
+                                <button pButton label="ย้อนกลับ" class="w-100 p-button-link"
+                                    (click)="step = 1"></button>
+                            </div>
+                            <div class="col-lg-6">
+                                <button pButton label="ยืนยัน" class="w-100" (click)="confirmAnswer()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </p-card>
+    </div>
+</div>
+
+<ng-template #chatTemplate>
+</ng-template>
