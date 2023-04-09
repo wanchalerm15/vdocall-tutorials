@@ -32,6 +32,8 @@ export class OfferComponent {
 
   private _peer: RTCPeerConnection & { dc?: RTCDataChannel } = new RTCPeerConnection();
 
+  localStream?: MediaStream;
+
   connected: boolean = false;
   offerData: string = '';
   answerData: string = '';
@@ -42,6 +44,16 @@ export class OfferComponent {
     { label: 'คัดลอก Offer' },
     { label: 'ยืนยัน Answer' },
   ];
+
+  /** เปิดกล้องและไมค์ */
+  async openStream() {
+    try {
+      this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    }
+    catch (ex: any) {
+      this._message.add({ severity: 'error', summary: 'เปิดกล้องไม่ได้', detail: ex.message });
+    }
+  }
 
   /** เมื่อกดปุ่มสร้างข้อมูล Offer */
   createOffer() {

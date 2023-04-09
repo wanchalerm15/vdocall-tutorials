@@ -3,6 +3,19 @@
         <p-card>
             <p-steps [model]="steps" [(activeIndex)]="step" styleClass="py-4"></p-steps>
             <ng-container [ngSwitch]="step">
+                <div class="row justify-content-center" *ngSwitchCase="0">
+                    <div class="col-lg-6">
+                        <button *ngIf="!localStream" pButton label="เปิดกล้อง" class="w-100"
+                            (click)="openStream()"></button>
+
+                        <ng-container *ngIf="localStream">
+                            <video [muted]="true" class="w-100 rounded-4 mb-3" [srcObject]="localStream"
+                                autoplay></video>
+                            <button pButton label="ถัดไป" class="w-100" (click)="step = 1"></button>
+                        </ng-container>
+                    </div>
+                </div>
+
                 <div class="row justify-content-center" *ngSwitchCase="1">
                     <div class="col-lg-6">
                         <button pButton label="สร้างข้อมูล Offer" class="w-100" (click)="createOffer()"></button>
