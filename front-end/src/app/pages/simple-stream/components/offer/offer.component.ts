@@ -12,6 +12,7 @@ export class OfferComponent {
     private _message: MessageService,
     private _zone: NgZone
   ) {
+    this._initalizeLoadDevices();
     this._peer.onconnectionstatechange = () => {
       this._zone.run(() => {
         this._message.add({ severity: 'info', summary: 'แจ้งเตือนการเชื่อมต่อ', detail: this._peer.connectionState });
@@ -33,6 +34,13 @@ export class OfferComponent {
   private _peer: RTCPeerConnection & { dc?: RTCDataChannel } = new RTCPeerConnection();
 
   localStream?: MediaStream;
+  devliceItem = {
+    videos: [] as MediaDeviceInfo[],
+    audios: [] as MediaDeviceInfo[]
+  };
+
+  videoDevice: string = '';
+  audioDevice: string = '';
 
   connected: boolean = false;
   offerData: string = '';
@@ -48,7 +56,10 @@ export class OfferComponent {
   /** เปิดกล้องและไมค์ */
   async openStream() {
     try {
-      this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      this.localStream = await navigator.mediaDevices.getUserMedia({
+        video: { deviceId: { exact: this.videoDevice } },
+        audio: { deviceId: { exact: this.audioDevice } }
+      });
     }
     catch (ex: any) {
       this._message.add({ severity: 'error', summary: 'เปิดกล้องไม่ได้', detail: ex.message });
@@ -81,5 +92,23 @@ export class OfferComponent {
     this._zone.run(() => {
       console.log('Message: ', ev.data);
     });
+  }
+
+  /** โหลดข้อมูล device กล้องและไมค์ */
+  private async _initalizeLoadDevices() {
+    const deviceItems = await navigator.mediaDevices.enumerateDevices();
+    deviceItems.forEach(item => {
+      switch (item.kind) {
+        case 'audioinput':
+          this.devliceItem.audios.push(item);
+          break;
+        case 'videoinput':
+          this.devliceItem.videos.push(item);
+          break;
+      }
+    });
+
+    if (this.devliceItem.videos.length > 0) this.videoDevice = this.devliceItem.videos[0].deviceId;
+    if (this.devliceItem.audios.length > 0) this.audioDevice = this.devliceItem.audios[0].deviceId;
   }
 }

@@ -10,7 +10,7 @@ import { MessageModule } from 'primeng/message';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     FormsModule,
     ButtonModule,
     InputTextareaModule,
+    DropdownModule,
   ]
 })
 export default class SimpleStreamModule { }
