@@ -5,27 +5,29 @@
             <ng-container [ngSwitch]="step">
                 <div class="row justify-content-center" *ngSwitchCase="0">
                     <div class="col-lg-6">
-                        <ng-container *ngIf="!localStream">
-                            <p-dropdown [options]="devliceItem.videos" optionLabel="label" optionValue="deviceId"
-                                styleClass="w-100 mb-3" [(ngModel)]="videoDevice"></p-dropdown>
+                        <p-dropdown [options]="devliceItem.videos" optionLabel="label" optionValue="deviceId"
+                            styleClass="w-100 mb-3" [(ngModel)]="videoDevice"></p-dropdown>
 
-                            <p-dropdown [options]="devliceItem.audios" optionLabel="label" optionValue="deviceId"
-                                styleClass="w-100 mb-3" [(ngModel)]="audioDevice"></p-dropdown>
+                        <p-dropdown [options]="devliceItem.audios" optionLabel="label" optionValue="deviceId"
+                            styleClass="w-100 mb-3" [(ngModel)]="audioDevice"></p-dropdown>
 
-                            <button pButton label="เปิดกล้อง" class="w-100" (click)="openStream()"></button>
-                        </ng-container>
-
-                        <ng-container *ngIf="localStream">
-                            <video [muted]="true" class="w-100 rounded-4 mb-3" [srcObject]="localStream"
-                                autoplay></video>
-                            <button pButton label="ถัดไป" class="w-100" (click)="step = 1"></button>
-                        </ng-container>
+                        <button pButton label="เปิดกล้อง" class="w-100" (click)="openStream()"></button>
                     </div>
                 </div>
 
                 <div class="row justify-content-center" *ngSwitchCase="1">
                     <div class="col-lg-6">
-                        <button pButton label="สร้างข้อมูล Offer" class="w-100" (click)="createOffer()"></button>
+                        <video [muted]="true" class="w-100 rounded-4 mb-3" [srcObject]="localStream" autoplay></video>
+                        <div class="row g-2">
+                            <div class="col-lg-6">
+                                <button pButton label="ย้อนกลับ" class="w-100 p-button-link"
+                                    (click)="step = 0"></button>
+                            </div>
+                            <div class="col-lg-6">
+                                <button pButton label="สร้างข้อมูล Offer" class="w-100"
+                                    (click)="createOffer()"></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -38,10 +40,10 @@
                         <div class="row g-2">
                             <div class="col-lg-6">
                                 <button pButton label="ย้อนกลับ" class="w-100 p-button-link"
-                                    (click)="step = 0"></button>
+                                    (click)="step = 1"></button>
                             </div>
                             <div class="col-lg-6">
-                                <button pButton label="ถัดไป" class="w-100" (click)="step = 2"></button>
+                                <button pButton label="ถัดไป" class="w-100" (click)="step = 3"></button>
                             </div>
                         </div>
                     </div>
@@ -56,7 +58,7 @@
                         <div class="row g-2">
                             <div class="col-lg-6">
                                 <button pButton label="ย้อนกลับ" class="w-100 p-button-link"
-                                    (click)="step = 1"></button>
+                                    (click)="step = 2"></button>
                             </div>
                             <div class="col-lg-6">
                                 <button pButton label="ยืนยัน" class="w-100" (click)="confirmAnswer()"></button>

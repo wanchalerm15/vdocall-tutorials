@@ -31,7 +31,7 @@ export class OfferComponent {
     };
   }
 
-  private _peer: RTCPeerConnection & { dc?: RTCDataChannel } = new RTCPeerConnection();
+  private _peer = new RTCPeerConnection();
 
   localStream?: MediaStream;
   devliceItem = {
@@ -60,6 +60,7 @@ export class OfferComponent {
         video: { deviceId: { exact: this.videoDevice } },
         audio: { deviceId: { exact: this.audioDevice } }
       });
+      this.step = 1;
     }
     catch (ex: any) {
       this._message.add({ severity: 'error', summary: 'เปิดกล้องไม่ได้', detail: ex.message });
@@ -68,13 +69,15 @@ export class OfferComponent {
 
   /** เมื่อกดปุ่มสร้างข้อมูล Offer */
   createOffer() {
-    this._peer.dc = this._peer.createDataChannel("channel");
-    this._peer.dc.onmessage = ev => this._onChannelMessage(ev);
+    if (!this.localStream)
+      return this._message.add({ severity: 'warn', summary: 'แจ้งเตือน', detail: 'ไม่มีข้อมูล Stream' });
+
+    this.localStream.getTracks().forEach(track => this._peer.addTrack(track, this.localStream!));
     this._peer.onicecandidate = ev => {
       if (!ev.candidate) return;
       this._zone.run(() => {
         this.offerData = JSON.stringify(this._peer.localDescription);
-        this.step = 1;
+        this.step = 2;
       });
     };
     this._peer.createOffer().then(offer => this._peer.setLocalDescription(offer));
@@ -85,13 +88,6 @@ export class OfferComponent {
     if (!this.answerData)
       return this._message.add({ severity: 'warn', summary: 'แจ้งเตือน', detail: 'กรุณากรอกข้อมูล Offer' });
     this._peer.setRemoteDescription(JSON.parse(this.answerData));
-  }
-
-  /** เมื่ออีกเครื่องส่งข้อความมา */
-  private _onChannelMessage(ev: MessageEvent<string>) {
-    this._zone.run(() => {
-      console.log('Message: ', ev.data);
-    });
   }
 
   /** โหลดข้อมูล device กล้องและไมค์ */
