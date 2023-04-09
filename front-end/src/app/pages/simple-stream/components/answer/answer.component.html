@@ -3,7 +3,7 @@
         <p-card>
             <p-steps [model]="steps" [(activeIndex)]="step" styleClass="py-4"></p-steps>
             <ng-container [ngSwitch]="step">
-                <div class="row justify-content-center" *ngSwitchCase="1">
+                <div class="row justify-content-center" *ngSwitchCase="0">
                     <div class="col-lg-6">
                         <p-message severity="warn" text="นำข้อมูล Offer ที่ได้มาวางที่ช่องด้านล่างจากนั้นกด ถัดไป"
                             styleClass="w-100 mb-3"></p-message>
@@ -12,13 +12,34 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-center" *ngSwitchCase="2">
+                <div class="row justify-content-center" *ngSwitchCase="1">
                     <div class="col-lg-6">
-                        <textarea pInputTextarea class="w-100 mb-3" rows="10" [ngModel]="offerData" disabled></textarea>
+                        <p-dropdown [options]="devliceItem.videos" optionLabel="label" optionValue="deviceId"
+                            styleClass="w-100 mb-3" [(ngModel)]="videoDevice"></p-dropdown>
+
+                        <p-dropdown [options]="devliceItem.audios" optionLabel="label" optionValue="deviceId"
+                            styleClass="w-100 mb-3" [(ngModel)]="audioDevice"></p-dropdown>
+
                         <div class="row g-2">
                             <div class="col-lg-6">
                                 <button pButton label="ย้อนกลับ" class="w-100 p-button-link"
                                     (click)="step = 0"></button>
+                            </div>
+                            <div class="col-lg-6">
+                                <button pButton label="เปิดกล้อง" class="w-100 p-button-warning"
+                                    (click)="openStream()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center" *ngSwitchCase="2">
+                    <div class="col-lg-6">
+                        <video [muted]="true" class="w-100 rounded-4 mb-3" [srcObject]="localStream" autoplay></video>
+                        <div class="row g-2">
+                            <div class="col-lg-6">
+                                <button pButton label="ย้อนกลับ" class="w-100 p-button-link"
+                                    (click)="step = 1"></button>
                             </div>
                             <div class="col-lg-6">
                                 <button pButton label="สร้างข้อมูล Answer" class="w-100 p-button-warning"
