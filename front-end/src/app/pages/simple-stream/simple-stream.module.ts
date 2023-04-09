@@ -11,11 +11,13 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
+import { StreamComponent } from './components/stream/stream.component';
 
 @NgModule({
   declarations: [
     OfferComponent,
-    AnswerComponent
+    AnswerComponent,
+    StreamComponent
   ],
   imports: [
     CommonModule,

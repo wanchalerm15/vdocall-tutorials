@@ -34,6 +34,7 @@ export class AnswerComponent {
   private _peer: RTCPeerConnection & { dc?: RTCDataChannel } = new RTCPeerConnection();
 
   localStream?: MediaStream;
+  remoteStream?: MediaStream;
   devliceItem = {
     videos: [] as MediaDeviceInfo[],
     audios: [] as MediaDeviceInfo[]
@@ -95,9 +96,10 @@ export class AnswerComponent {
 
   /** เมื่อเครื่องที่เชื่อมต่อส่งข้อมูล Stream มาให้ */
   private _onTrackStream(ev: RTCTrackEvent) {
-    if (ev.streams.length <= 0) return;
-    const stream = ev.streams[0];
-    console.log(stream, this.localStream);
+    this._zone.run(() => {
+      if (ev.streams.length <= 0) return;
+      this.remoteStream = ev.streams[0];
+    });
   }
 
   /** โหลดข้อมูล device กล้องและไมค์ */
