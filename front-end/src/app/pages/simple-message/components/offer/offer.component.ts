@@ -12,7 +12,24 @@ export class OfferComponent {
   constructor(
     private _message: MessageService,
     private _zone: NgZone
-  ) { }
+  ) {
+    this._peer.onconnectionstatechange = () => {
+      this._zone.run(() => {
+        this._message.add({ severity: 'info', summary: 'แจ้งเตือนการเชื่อมต่อ', detail: this._peer.connectionState });
+        switch (this._peer.connectionState) {
+          case 'connected':
+            this.connected = true;
+            break;
+          case 'disconnected':
+            this.step = 0;
+            this.offerData = '';
+            this.answerData = '';
+            this.connected = false;
+            break;
+        }
+      });
+    };
+  }
 
   private _peer: RTCPeerConnection & { dc?: RTCDataChannel } = new RTCPeerConnection();
 
@@ -32,7 +49,6 @@ export class OfferComponent {
   /** เมื่อกดปุ่มสร้างข้อมูล Offer */
   createOffer() {
     this._peer.dc = this._peer.createDataChannel("channel");
-    this._peer.dc.onopen = () => this._onChannelOpen();
     this._peer.dc.onmessage = ev => this._onChannelMessage(ev);
     this._peer.onicecandidate = ev => {
       if (!ev.candidate) return;
@@ -49,14 +65,6 @@ export class OfferComponent {
     if (!this.answerData)
       return this._message.add({ severity: 'warn', summary: 'แจ้งเตือน', detail: 'กรุณากรอกข้อมูล Offer' });
     this._peer.setRemoteDescription(JSON.parse(this.answerData));
-  }
-
-  /** เมื่อเชื่อมต่อสำเร็จ */
-  private _onChannelOpen() {
-    this._zone.run(() => {
-      console.log('Open successfully');
-      this.connected = true;
-    });
   }
 
   /** เมื่ออีกเครื่องส่งข้อความมา */

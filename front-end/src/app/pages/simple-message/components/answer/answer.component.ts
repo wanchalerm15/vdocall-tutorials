@@ -12,7 +12,24 @@ export class AnswerComponent {
   constructor(
     private _message: MessageService,
     private _zone: NgZone,
-  ) { }
+  ) {
+    this._peer.onconnectionstatechange = () => {
+      this._zone.run(() => {
+        this._message.add({ severity: 'info', summary: 'แจ้งเตือนการเชื่อมต่อ', detail: this._peer.connectionState });
+        switch (this._peer.connectionState) {
+          case 'connected':
+            this.connected = true;
+            break;
+          case 'disconnected':
+            this.step = 0;
+            this.offerData = '';
+            this.answerData = '';
+            this.connected = false;
+            break;
+        }
+      });
+    };
+  }
 
   private _peer: RTCPeerConnection & { dc?: RTCDataChannel } = new RTCPeerConnection();
 
@@ -40,7 +57,6 @@ export class AnswerComponent {
   createAnswer() {
     this._peer.ondatachannel = ev => {
       this._peer.dc = ev.channel;
-      this._peer.dc.onopen = () => this._onChannelOpen();
       this._peer.dc.onmessage = ev => this._onChannelMessage(ev);
     };
 
@@ -54,14 +70,6 @@ export class AnswerComponent {
 
     this._peer.setRemoteDescription(JSON.parse(this.offerData));
     this._peer.createAnswer().then(answer => this._peer.setLocalDescription(answer));
-  }
-
-  /** เมื่อเชื่อมต่อสำเร็จ */
-  private _onChannelOpen() {
-    this._zone.run(() => {
-      console.log('Open successfully');
-      this.connected = true;
-    });
   }
 
   /** เมื่ออีกเครื่องส่งข้อความมา */
